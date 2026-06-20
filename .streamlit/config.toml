@@ -1,0 +1,20 @@
+[theme]
+primaryColor = "#C9A227"
+backgroundColor = "#0E1117"
+secondaryBackgroundColor = "#1A1E29"
+textColor = "#FAFAFA"
+font = "sans serif"
+
+[server]
+maxUploadSize = 50
+headless = true
+# Disable hot-reload watcher. It walks every loaded module's __path__, which
+# forces `transformers` to eagerly import all its (optional) vision modules and
+# floods the console with torchvision ModuleNotFoundError tracebacks.
+fileWatcherType = "none"
+
+[logger]
+level = "error"
+
+[browser]
+gatherUsageStats = false
