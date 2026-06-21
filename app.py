@@ -187,6 +187,7 @@ def _init_state():
     st.session_state.setdefault("summary", None)
     st.session_state.setdefault("stats", None)
     st.session_state.setdefault("history", [])        # list of {question, answer, sources}
+    st.session_state.setdefault("uploader_key", 0)    # bumped to reset the file uploader
 
 
 def _reset_session():
@@ -195,6 +196,16 @@ def _reset_session():
     st.session_state.summary = None
     st.session_state.stats = None
     st.session_state.history = []
+
+
+def _clear_all():
+    """Full reset: drop the document, summary, and chat so a new upload is required."""
+    _reset_session()
+    st.session_state.doc_id = None
+    st.session_state.doc_name = None
+    # Changing the uploader key forces Streamlit to render a fresh, empty uploader
+    # so the previous PDF is actually removed (not silently re-indexed).
+    st.session_state.uploader_key += 1
 
 
 def _source_chips_html(pages) -> str:
@@ -241,7 +252,11 @@ with st.sidebar:
         )
 
     uploaded = st.file_uploader(
-        "PDF file", type=["pdf"], accept_multiple_files=False, label_visibility="collapsed"
+        "PDF file",
+        type=["pdf"],
+        accept_multiple_files=False,
+        label_visibility="collapsed",
+        key=f"uploader_{st.session_state.uploader_key}",
     )
 
     if uploaded is not None:
@@ -303,8 +318,11 @@ with st.sidebar:
         use_container_width=True,
     )
 
-    if st.button("Clear chat", use_container_width=True, disabled=not history):
-        st.session_state.history = []
+    has_session = st.session_state.index is not None or bool(history)
+    if st.button(
+        "Clear chat & remove PDF", use_container_width=True, disabled=not has_session
+    ):
+        _clear_all()
         st.rerun()
 
     # Active engine badge (shows the free local + provider stack).
