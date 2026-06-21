@@ -6,3 +6,7 @@ fpdf2>=2.7.9
 tiktoken>=0.7.0
 sentence-transformers>=3.0.0
 python-dotenv>=1.0.0
+# Pinned floors so a fresh install can't regress into the old huggingface_hub /
+# datasets incompatibility (missing HfFolder) seen during local setup.
+datasets>=4.0.0
+huggingface_hub>=1.0.0

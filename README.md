@@ -1,11 +1,26 @@
+---
+title: VertexArc PDF QA
+emoji: 📄
+colorFrom: yellow
+colorTo: gray
+sdk: streamlit
+app_file: app.py
+pinned: false
+short_description: Ask questions answered only from your uploaded PDF (RAG)
+---
+
 # VertexArc PDF Q&A
 
 A document-based Question & Answer application. Upload a PDF, get an automatic
 summary, and ask questions that are answered **only** from the contents of that
 document using Retrieval-Augmented Generation (RAG).
 
-Built with **Streamlit** (UI + backend) and the **OpenAI API** (embeddings +
-chat completion).
+Built with **Streamlit**, local open-source embeddings
+(`sentence-transformers`), and **Groq** (free tier) for chat/summary via an
+OpenAI-compatible API. OpenAI is supported as an alternative provider.
+
+> **Hugging Face Spaces:** set `GROQ_API_KEY`, `LLM_PROVIDER=groq`, and
+> `EMBED_BACKEND=local` under *Settings → Variables and secrets*.
 
 ---
 
