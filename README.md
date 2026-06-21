@@ -3,8 +3,8 @@ title: VertexArc PDF QA
 emoji: 📄
 colorFrom: yellow
 colorTo: gray
-sdk: streamlit
-app_file: app.py
+sdk: docker
+app_port: 7860
 pinned: false
 short_description: Ask questions answered only from your uploaded PDF (RAG)
 ---
